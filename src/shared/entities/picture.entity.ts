@@ -2,6 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Artist } from 'src/modules/artists/artist.entity';
 import { Release } from 'src/modules/releases/release.entity';
 import { Label } from 'src/modules/label/label.entity';
+import { Track } from 'src/modules/tracks/track.entity';
+import { Venue } from 'src/modules/venues/venue.entity';
 
 @Entity()
 export class Picture {
@@ -30,5 +32,17 @@ export class Picture {
 		onDelete: "CASCADE",
 		onUpdate: "CASCADE"
 	})
-	label: Label
+  label: Label
+  
+  @ManyToOne(type => Track, track => track.pictureList, {
+		onDelete: "CASCADE",
+		onUpdate: "CASCADE"
+	})
+  track: Track
+  
+  @ManyToOne(type => Venue, venue => venue.pictureList, {
+		onDelete: "CASCADE",
+		onUpdate: "CASCADE"
+	})
+	venue: Venue
 }

@@ -18,14 +18,14 @@ export class ArtistsController {
 	}
 
   @Post()
-  createArtist(@Body() atistData: Artist): Promise<Artist> {
-    return this.artistsService.create(atistData);
+  createArtist(@Body() artistData: Artist): Promise<Artist> {
+    return this.artistsService.create(artistData);
   }
 
   @Put(':id')
-  updateArtist(@Param('id') id, @Body() atistData: Artist): Promise<Artist> {
-    atistData.id = Number(id);
-    return this.artistsService.update(atistData);
+  updateArtist(@Param('id') id, @Body() artistData: Artist): Promise<Artist> {
+    artistData.id = Number(id);
+    return this.artistsService.update(artistData);
   }
 
   @Delete(':id')

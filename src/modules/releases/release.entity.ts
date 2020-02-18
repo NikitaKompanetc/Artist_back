@@ -8,6 +8,8 @@ import { Picture } from 'src/shared/entities/picture.entity';
 import { Location } from 'src/shared/entities/location.entity';
 import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
 import { Label } from 'src/modules/label/label.entity';
+import { Track } from '../tracks/track.entity';
+import { MasterRelease } from '../masterRelease/masterRelease.entity';
 
 @Entity()
 export class Release {
@@ -48,7 +50,11 @@ export class Release {
   })
   label: Label
 
-  // trackList?: Track[];
+  @ManyToMany(type => Track, {
+    eager: true,
+  })
+  @JoinTable()
+  trackList: Track[]
 
   @ManyToMany(type => Format, {
     eager: true,
@@ -73,4 +79,10 @@ export class Release {
     eager: true,
   })
   linkList: Link[]
+
+  @ManyToOne(type => MasterRelease, masterRelease => masterRelease.releaseList, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+  })
+  masterRelease: MasterRelease
 }
