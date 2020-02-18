@@ -1,5 +1,5 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm';
 import { Link } from 'src/shared/entities/link.entity';
 import { Format } from 'src/shared/entities/format.entity';
 import { Style } from 'src/shared/entities/style.entity';
@@ -7,6 +7,7 @@ import { Genre } from 'src/shared/entities/genre.entity';
 import { Picture } from 'src/shared/entities/picture.entity';
 import { Location } from 'src/shared/entities/location.entity';
 import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
+import { Label } from 'src/modules/label/label.entity';
 
 @Entity()
 export class Release {
@@ -16,8 +17,8 @@ export class Release {
   @Column()
   name: string;
 
-  @Column()
-  description: string;
+  @Column({ nullable: true })
+  description: string
 
   @OneToOne(type => Location, {
     cascade: true,
@@ -33,20 +34,21 @@ export class Release {
   @JoinColumn()
   profilePicture: ProfilePicture
 
-  @ManyToMany(type => Picture, {
+  @OneToMany(type => Picture, picture => picture.release, {
     cascade: true,
     eager: true,
   })
-  @JoinTable()
   pictureList: Picture[]
 
-	@Column()
+  @Column({ nullable: true })
 	publishedAt: string
 
+  @ManyToOne(type => Label, {
+    eager: true,
+  })
+  label: Label
 
-  // label?: Label;
   // trackList?: Track[];
-  
 
   @ManyToMany(type => Format, {
     eager: true,
@@ -66,10 +68,9 @@ export class Release {
   @JoinTable()
   styleList: Style[]
 
-  @ManyToMany(type => Link, {
+  @OneToMany(type => Link, link => link.release, {
     cascade: true,
-   eager: true,
+    eager: true,
   })
-  @JoinTable()
   linkList: Link[]
 }

@@ -8,26 +8,26 @@ import { Release } from './release.entity';
 export class ReleasesService {
   constructor(
     @InjectRepository(Release)
-    private readonly artistRepository: Repository<Release>,
+    private readonly releaseRepository: Repository<Release>,
   ) { }
 
   findAll(): Promise<Release[]> {
-    return this.artistRepository.find();
+    return this.releaseRepository.find();
   }
 
   findOne(id): Promise<Release> {
-    return this.artistRepository.findOne(id);
+    return this.releaseRepository.findOne(id);
   }
 
-  create(artist: Release): Promise<Release> {
-    return this.artistRepository.save(artist);
+  create(release: Release): Promise<Release> {
+    return this.releaseRepository.save(release);
   }
 
-  update(artist: Release): Promise<Release> {
-    return this.artistRepository.save(artist);
+  update(release: Release): Promise<Release> {
+    return this.releaseRepository.save(release);
   }
 
   delete(id): Promise<DeleteResult> {
-    return this.artistRepository.delete(id);
+    return this.releaseRepository.delete(id);
   }
 }

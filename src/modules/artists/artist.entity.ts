@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, ManyToOne, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToMany, OneToOne, ManyToMany, JoinTable } from 'typeorm';
 import { Link } from 'src/shared/entities/link.entity';
 import { Location } from 'src/shared/entities/location.entity';
 import { ArtistType } from 'src/shared/models/artist';
@@ -38,11 +38,10 @@ export class Artist {
   @JoinColumn()
   profilePicture: ProfilePicture
 
-  @ManyToMany(type => Picture, {
+  @OneToMany(type => Picture, picture => picture.artist, {
     cascade: true,
     eager: true,
   })
-  @JoinTable()
   pictureList: Picture[]
 
   @Column("integer", { array: true, nullable: true })

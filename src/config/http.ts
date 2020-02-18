@@ -12,7 +12,7 @@ export default registerAs(CONFIG_TOKEN, () => {
       credentials: true,
     },
     server: {
-      port: process.env.PORT || 8000,
+      port: process.env.PORT || 8001,
     },
   };
 });

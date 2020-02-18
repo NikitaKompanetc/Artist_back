@@ -1,3 +1,5 @@
+import { Location } from './location';
+
 export interface Record {
   name: string,
   who: string,
@@ -7,13 +9,9 @@ export interface Record {
 export interface Label {
   name: string,
   profile: string,
-  imageUrls: string[],
-  country: string,
-  city: string,
-  state: string,
-  street: string,
-  urls: string[],
-  zipcode: number,
+  // profilePisture
+  // pictureList
+  location: Location
   websites: string[],
   id: number,
 }
