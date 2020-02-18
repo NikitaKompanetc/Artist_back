@@ -11,6 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const link_entity_1 = require("../../shared/entities/link.entity");
+const location_entity_1 = require("../../shared/entities/location.entity");
+const artist_1 = require("../../shared/models/artist");
+const profile_picture_entity_1 = require("../../shared/entities/profile-picture.entity");
+const picture_entity_1 = require("../../shared/entities/picture.entity");
+const genre_entity_1 = require("../../shared/entities/genre.entity");
+const style_entity_1 = require("../../shared/entities/style.entity");
 let Artist = class Artist {
 };
 __decorate([
@@ -30,11 +36,60 @@ __decorate([
     __metadata("design:type", String)
 ], Artist.prototype, "description", void 0);
 __decorate([
-    typeorm_1.ManyToMany(type => link_entity_1.Link, {
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], Artist.prototype, "type", void 0);
+__decorate([
+    typeorm_1.OneToOne(type => location_entity_1.Location, {
+        cascade: true,
+        eager: true,
+    }),
+    typeorm_1.JoinColumn(),
+    __metadata("design:type", location_entity_1.Location)
+], Artist.prototype, "location", void 0);
+__decorate([
+    typeorm_1.OneToOne(type => profile_picture_entity_1.ProfilePicture, {
+        cascade: true,
+        eager: true,
+    }),
+    typeorm_1.JoinColumn(),
+    __metadata("design:type", profile_picture_entity_1.ProfilePicture)
+], Artist.prototype, "profilePicture", void 0);
+__decorate([
+    typeorm_1.ManyToMany(type => picture_entity_1.Picture, {
         cascade: true,
         eager: true,
     }),
     typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Artist.prototype, "pictureList", void 0);
+__decorate([
+    typeorm_1.Column("integer", { array: true, nullable: true }),
+    __metadata("design:type", Array)
+], Artist.prototype, "memberList", void 0);
+__decorate([
+    typeorm_1.Column("integer", { array: true, nullable: true }),
+    __metadata("design:type", Array)
+], Artist.prototype, "memberOf", void 0);
+__decorate([
+    typeorm_1.ManyToMany(type => genre_entity_1.Genre, {
+        eager: true,
+    }),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Artist.prototype, "genreList", void 0);
+__decorate([
+    typeorm_1.ManyToMany(type => style_entity_1.Style, {
+        eager: true,
+    }),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Artist.prototype, "styleList", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => link_entity_1.Link, link => link.artist, {
+        cascade: true,
+        eager: true,
+    }),
     __metadata("design:type", Array)
 ], Artist.prototype, "linkList", void 0);
 Artist = __decorate([

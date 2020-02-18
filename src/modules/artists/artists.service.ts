@@ -15,19 +15,38 @@ export class ArtistsService {
     return this.artistRepository.find();
   }
 
-  findOne(id): Promise<Artist> {
-    return this.artistRepository.findOne(id);
+  async findOne(id): Promise<Artist> {
+    const artist = await this.artistRepository.findOne(id)
+    if (artist) {
+      artist.memberList = await this.fetchMembers(artist.memberList)
+      artist.memberOf = await this.fetchMembers(artist.memberOf)
+    }
+
+    return artist
+  }
+
+  async fetchMembers(idList) {
+    if (idList) {
+      const members = []
+      for (let id of idList) {
+        const currentArtist = await this.artistRepository.findOne(id as number)
+        if (currentArtist) {
+          members.push(currentArtist)
+        }
+      }
+      return members
+    }
   }
 
   create(artist: Artist): Promise<Artist> {
-    return this.artistRepository.save(artist);
+    return this.artistRepository.save(artist)
   }
 
   update(artist: Artist): Promise<Artist> {
-    return this.artistRepository.save(artist);
+    return this.artistRepository.save(artist)
   }
 
   delete(id): Promise<DeleteResult> {
-    return this.artistRepository.delete(id);
+    return this.artistRepository.delete(id)
   }
 }

@@ -6,6 +6,7 @@ export declare class ArtistsService {
     constructor(artistRepository: Repository<Artist>);
     findAll(): Promise<Artist[]>;
     findOne(id: any): Promise<Artist>;
+    fetchMembers(idList: any): Promise<any[]>;
     create(artist: Artist): Promise<Artist>;
     update(artist: Artist): Promise<Artist>;
     delete(id: any): Promise<DeleteResult>;

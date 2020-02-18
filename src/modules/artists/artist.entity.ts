@@ -1,5 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, ManyToOne, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { Link } from 'src/shared/entities/link.entity';
+import { Location } from 'src/shared/entities/location.entity';
+import { ArtistType } from 'src/shared/models/artist';
+import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
+import { Picture } from 'src/shared/entities/picture.entity';
+import { Genre } from 'src/shared/entities/genre.entity';
+import { Style } from 'src/shared/entities/style.entity';
 
 @Entity()
 export class Artist {
@@ -15,34 +21,51 @@ export class Artist {
 	@Column()
 	description: string
 
-	// @Column()
-	// type: Artist
+  @Column({ nullable: true })
+  type: ArtistType
 
-	// @Column()
-	// location: Location
+  @OneToOne(type => Location, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  location: Location
 
-	// @Column()
-	// profilePicture: { url: string; }
+  @OneToOne(type => ProfilePicture, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  profilePicture: ProfilePicture
 
-	// @Column()
-	// pictureList: Array<{ url: string; name?: string; }>
+  @ManyToMany(type => Picture, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinTable()
+  pictureList: Picture[]
 
-	// @Column()
-	// memberList: Artist[]
+  @Column("integer", { array: true, nullable: true })
+  memberList: Array<number | Artist>
 
-	// @Column()
-	// memberOf: Artist[]
+  @Column("integer", { array: true, nullable: true })
+  memberOf: Array<number | Artist>
 
-	// @Column()
-	// genreList: Genre[]
+  @ManyToMany(type => Genre, {
+    eager: true,
+  })
+  @JoinTable()
+  genreList: Genre[]
 
-	// @Column()
-	// styleList: Style[]
+  @ManyToMany(type => Style, {
+    eager: true,
+  })
+  @JoinTable()
+  styleList: Style[]
 
-	@ManyToMany(type => Link, {
+	@OneToMany(type => Link, link => link.artist, {
 	 	cascade: true,
 		eager: true,
 	})
-	@JoinTable()
 	linkList: Link[]
 }

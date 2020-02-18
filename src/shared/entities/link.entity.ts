@@ -10,5 +10,11 @@ export class Link {
 	name: string
 
 	@Column()
-	url: string
+  url: string
+  
+  @ManyToOne(type => Artist, artist => artist.linkList, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+  })
+  artist: Artist
 }

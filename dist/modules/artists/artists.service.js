@@ -23,8 +23,25 @@ let ArtistsService = class ArtistsService {
     findAll() {
         return this.artistRepository.find();
     }
-    findOne(id) {
-        return this.artistRepository.findOne(id);
+    async findOne(id) {
+        const artist = await this.artistRepository.findOne(id);
+        if (artist) {
+            artist.memberList = await this.fetchMembers(artist.memberList);
+            artist.memberOf = await this.fetchMembers(artist.memberOf);
+        }
+        return artist;
+    }
+    async fetchMembers(idList) {
+        if (idList) {
+            const members = [];
+            for (let id of idList) {
+                const currentArtist = await this.artistRepository.findOne(id);
+                if (currentArtist) {
+                    members.push(currentArtist);
+                }
+            }
+            return members;
+        }
     }
     create(artist) {
         return this.artistRepository.save(artist);

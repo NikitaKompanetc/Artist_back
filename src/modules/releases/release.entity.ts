@@ -1,50 +1,75 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, JoinColumn, OneToOne } from 'typeorm';
 import { Link } from 'src/shared/entities/link.entity';
-import { ArtistType } from 'src/shared/models/artist';
+import { Format } from 'src/shared/entities/format.entity';
+import { Style } from 'src/shared/entities/style.entity';
+import { Genre } from 'src/shared/entities/genre.entity';
+import { Picture } from 'src/shared/entities/picture.entity';
+import { Location } from 'src/shared/entities/location.entity';
+import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
 
 @Entity()
 export class Release {
 	@PrimaryGeneratedColumn()
-	id: number
+  id: number
+  
+  @Column()
+  name: string;
+
+  @Column()
+  description: string;
+
+  @OneToOne(type => Location, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  location: Location
+
+  @OneToOne(type => ProfilePicture, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  profilePicture: ProfilePicture
+
+  @ManyToMany(type => Picture, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinTable()
+  pictureList: Picture[]
 
 	@Column()
-	name: string
+	publishedAt: string
 
-	// @Column()
-	// date: string
 
-	// @Column()
-	// description: string
+  // label?: Label;
+  // trackList?: Track[];
+  
 
-	// @Column()
-	// type: ArtistType
+  @ManyToMany(type => Format, {
+    eager: true,
+  })
+  @JoinTable()
+  formatList: Format[]
 
-	// @Column()
-	// location: Location
+  @ManyToMany(type => Genre, {
+    eager: true,
+  })
+  @JoinTable()
+  genreList: Genre[]
 
-	// @Column()
-	// profilePicture: { url: string; }
+  @ManyToMany(type => Style, {
+    eager: true,
+  })
+  @JoinTable()
+  styleList: Style[]
 
-	// @Column()
-	// pictureList: Array<{ url: string; name?: string; }>
-
-	// @Column()
-	// memberList: Artist[]
-
-	// @Column()
-	// memberOf: Artist[]
-
-	// @Column()
-	// genreList: Genre[]
-
-	// @Column()
-	// styleList: Style[]
-
-	@ManyToMany(type => Link, {
-	 	cascade: true,
-		eager: true,
-	})
-	@JoinTable()
-	linkList: Link[]
+  @ManyToMany(type => Link, {
+    cascade: true,
+   eager: true,
+  })
+  @JoinTable()
+  linkList: Link[]
 }

@@ -25,6 +25,13 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
 ], Link.prototype, "url", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => artist_entity_1.Artist, artist => artist.linkList, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    }),
+    __metadata("design:type", artist_entity_1.Artist)
+], Link.prototype, "artist", void 0);
 Link = __decorate([
     typeorm_1.Entity()
 ], Link);
