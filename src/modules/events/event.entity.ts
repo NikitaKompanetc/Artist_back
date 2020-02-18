@@ -1,13 +1,12 @@
-
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm';
 import { Link } from 'src/shared/entities/link.entity';
 import { Picture } from 'src/shared/entities/picture.entity';
 import { Location } from 'src/shared/entities/location.entity';
 import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
-import { Event } from '../events/event.entity';
+import { Venue } from '../venues/venue.entity';
 
 @Entity()
-export class Venue {
+export class Event {
 	@PrimaryGeneratedColumn()
   id: number
   
@@ -31,18 +30,20 @@ export class Venue {
   @JoinColumn()
   profilePicture: ProfilePicture
 
-  @OneToMany(type => Picture, picture => picture.venue, {
+  @OneToMany(type => Picture, picture => picture.event, {
     cascade: true,
     eager: true,
   })
   pictureList: Picture[]
 
-  @OneToMany(type => Link, link => link.venue, {
+  @OneToMany(type => Link, link => link.event, {
     cascade: true,
     eager: true,
   })
   linkList: Link[]
 
-  @OneToMany(type => Event, event => event.venue)
-  eventList: Event[]
+  @ManyToOne(type => Venue, venue => venue.eventList, {
+    eager: true
+  })
+  venue: Venue
 }

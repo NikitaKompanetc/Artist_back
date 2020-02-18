@@ -5,9 +5,10 @@ import { TypeOrmModule } from './type-orm/type.orm.module';
 import { ConfigModule } from './config/config.module';
 import { ArtistsModule } from '../modules/artists/artists.module';
 import { ReleasesModule } from 'src/modules/releases/releases.module';
-import { LabelsModule } from 'src/modules/label/labels.module';
-import { MasterReleasesModule } from 'src/modules/masterRelease/masterReleases.module';
+import { LabelsModule } from 'src/modules/labels/labels.module';
+import { MasterReleasesModule } from 'src/modules/masterReleases/masterReleases.module';
 import { VenuesModule } from 'src/modules/venues/venues.module';
+import { EventsModule } from 'src/modules/events/events.module';
 
 const modules = [
   TypeOrmModule,
@@ -18,8 +19,9 @@ const modules = [
   LabelsModule,
   TracksModule,
   MasterReleasesModule,
-  VenuesModule
-];
+  VenuesModule,
+  EventsModule
+]
 
 @Module({
 	imports: modules

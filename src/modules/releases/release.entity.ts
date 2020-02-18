@@ -7,9 +7,9 @@ import { Genre } from 'src/shared/entities/genre.entity';
 import { Picture } from 'src/shared/entities/picture.entity';
 import { Location } from 'src/shared/entities/location.entity';
 import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
-import { Label } from 'src/modules/label/label.entity';
+import { Label } from 'src/modules/labels/label.entity';
 import { Track } from '../tracks/track.entity';
-import { MasterRelease } from '../masterRelease/masterRelease.entity';
+import { MasterRelease } from '../masterReleases/masterRelease.entity';
 
 @Entity()
 export class Release {
@@ -80,9 +80,6 @@ export class Release {
   })
   linkList: Link[]
 
-  @ManyToOne(type => MasterRelease, masterRelease => masterRelease.releaseList, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-  })
+  @ManyToOne(type => MasterRelease, masterRelease => masterRelease.releaseList)
   masterRelease: MasterRelease
 }
