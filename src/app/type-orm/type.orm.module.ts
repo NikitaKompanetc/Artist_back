@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import * as path from 'path';
-import { TypeOrmModule as NestTypeOrmModule } from '@nestjs/typeorm';
+import { Module } from '@nestjs/common' 
+import * as path from 'path' 
+import { TypeOrmModule as NestTypeOrmModule } from '@nestjs/typeorm' 
 
 const modules = [
   NestTypeOrmModule.forRoot({
@@ -13,7 +13,7 @@ const modules = [
     database: "artistsdb",
     entities: [__dirname + '../../../**/*.entity.{ts,js}', __dirname + '../../../shared/entities/*.entity.{ts,js}']
   })
-];
+] 
 
 @Module({
   imports: modules,

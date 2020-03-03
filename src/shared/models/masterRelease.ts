@@ -1,4 +1,4 @@
-import { Release } from "./release";
+import { Release } from "./release" 
 
 export interface Track {
   name: string,
@@ -6,8 +6,8 @@ export interface Track {
 }
 
 export interface MasterRelease {
-  id: number;
-  name: string;
-  description?: string;
-  releaseList: Release[];
+  id: number 
+  name: string 
+  description?: string 
+  releaseList: Release[] 
 }

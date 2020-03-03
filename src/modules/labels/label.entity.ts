@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
-import { ProfilePicture } from '../../shared/entities/profile-picture.entity';
-import { Picture } from '../../shared/entities/picture.entity';
-import { Location } from '../../shared/entities/location.entity';
-import { Link } from '../../shared/entities/link.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm' 
+import { ProfilePicture } from '../../shared/entities/profile-picture.entity' 
+import { Picture } from '../../shared/entities/picture.entity' 
+import { Location } from '../../shared/entities/location.entity' 
+import { Link } from '../../shared/entities/link.entity' 
 
 @Entity()
 export class Label {

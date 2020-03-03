@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { DeleteResult } from  'typeorm';
-import { MasterRelease } from './masterRelease.entity';
+import { Injectable } from '@nestjs/common' 
+import { InjectRepository } from '@nestjs/typeorm' 
+import { Repository } from 'typeorm' 
+import { DeleteResult } from  'typeorm' 
+import { MasterRelease } from './masterRelease.entity' 
 
 @Injectable()
 export class MasterReleasesService {
@@ -12,7 +12,7 @@ export class MasterReleasesService {
   ) { }
 
   findAll(): Promise<MasterRelease[]> {
-    return this.masterReleaseRepository.find();
+    return this.masterReleaseRepository.find() 
   }
 
   findOne(id): Promise<MasterRelease> {

@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Artist } from './artist.entity';
-import { DeleteResult } from  'typeorm';
+import { Injectable } from '@nestjs/common' 
+import { InjectRepository } from '@nestjs/typeorm' 
+import { Repository } from 'typeorm' 
+import { Artist } from './artist.entity' 
+import { DeleteResult } from  'typeorm' 
 
 @Injectable()
 export class ArtistsService {
@@ -12,7 +12,7 @@ export class ArtistsService {
   ) { }
 
   findAll(): Promise<Artist[]> {
-    return this.artistRepository.find();
+    return this.artistRepository.find() 
   }
 
   async findOne(id): Promise<Artist> {

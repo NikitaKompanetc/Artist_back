@@ -1,7 +1,7 @@
-import { Format } from "./format";
-import { Genre } from "./genre";
-import { Style } from "./style";
-import { Location } from "./location";
+import { Format } from "./format" 
+import { Genre } from "./genre" 
+import { Style } from "./style" 
+import { Location } from "./location" 
 
  interface Label {
   id: string
@@ -16,8 +16,8 @@ interface Track {
 export interface Release {
   publishedAt?: Date
   id: number
-  profilePicture?: { url: string; }
-  pictureList?: Array<{ url: string; name?: string; }>
+  profilePicture?: { url: string  }
+  pictureList?: Array<{ url: string; name?: string  }>
   name: string
   label?: Label
   formatList?: Format[]

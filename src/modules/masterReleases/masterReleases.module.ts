@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { MasterRelease } from './masterRelease.entity';
-import { MasterReleasesService } from './masterReleases.service';
-import { MasterReleasesController } from './masterReleases.controller';
+import { Module } from '@nestjs/common' 
+import { TypeOrmModule } from '@nestjs/typeorm' 
+import { MasterRelease } from './masterRelease.entity' 
+import { MasterReleasesService } from './masterReleases.service' 
+import { MasterReleasesController } from './masterReleases.controller' 
 
 @Module({
   imports: [

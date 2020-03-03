@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common';
-import { ArtistsService } from './artists.service';
-import { DeleteResult } from 'typeorm';
-import { Artist } from './artist.entity';
+import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common' 
+import { ArtistsService } from './artists.service' 
+import { DeleteResult } from 'typeorm' 
+import { Artist } from './artist.entity' 
 
 @Controller('artists')
 export class ArtistsController {
@@ -9,27 +9,27 @@ export class ArtistsController {
 
 	@Get()
 	getArtists(): Promise<Artist[]> {
-    return this.artistsService.findAll();
+    return this.artistsService.findAll() 
 	}
 	
 	@Get(':id') 
 	getArtist(@Param('id') id) {
-		return this.artistsService.findOne(id);
+		return this.artistsService.findOne(id) 
 	}
 
   @Post()
   createArtist(@Body() artistData: Artist): Promise<Artist> {
-    return this.artistsService.create(artistData);
+    return this.artistsService.create(artistData) 
   }
 
   @Put(':id')
   updateArtist(@Param('id') id, @Body() artistData: Artist): Promise<Artist> {
-    artistData.id = Number(id);
-    return this.artistsService.update(artistData);
+    artistData.id = Number(id) 
+    return this.artistsService.update(artistData) 
   }
 
   @Delete(':id')
   deleteArtist(@Param('id') id): Promise<DeleteResult> {
-    return this.artistsService.delete(id);
+    return this.artistsService.delete(id) 
   }
 }

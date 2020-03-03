@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToMany, OneToOne, ManyToMany, JoinTable } from 'typeorm';
-import { Link } from 'src/shared/entities/link.entity';
-import { Location } from 'src/shared/entities/location.entity';
-import { ArtistType } from 'src/shared/models/artist';
-import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
-import { Picture } from 'src/shared/entities/picture.entity';
-import { Genre } from 'src/shared/entities/genre.entity';
-import { Style } from 'src/shared/entities/style.entity';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToMany, OneToOne, ManyToMany, JoinTable } from 'typeorm' 
+import { Link } from 'src/shared/entities/link.entity' 
+import { Location } from 'src/shared/entities/location.entity' 
+import { ArtistType } from 'src/shared/models/artist' 
+import { ProfilePicture } from 'src/shared/entities/profile-picture.entity' 
+import { Picture } from 'src/shared/entities/picture.entity' 
+import { Style } from '../styles/style.entity' 
+import { Genre } from '../genres/genre.entity' 
 
 @Entity()
 export class Artist {

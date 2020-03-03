@@ -1,6 +1,6 @@
-import { registerAs } from '@nestjs/config';
+import { registerAs } from '@nestjs/config' 
 
-export const CONFIG_TOKEN = 'http';
+export const CONFIG_TOKEN = 'http' 
 
 export default registerAs(CONFIG_TOKEN, () => {
   return {
@@ -14,5 +14,5 @@ export default registerAs(CONFIG_TOKEN, () => {
     server: {
       port: process.env.PORT || 8001,
     },
-  };
-});
+  } 
+}) 

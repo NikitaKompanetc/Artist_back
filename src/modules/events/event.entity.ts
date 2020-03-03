@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm';
-import { Link } from 'src/shared/entities/link.entity';
-import { Picture } from 'src/shared/entities/picture.entity';
-import { Location } from 'src/shared/entities/location.entity';
-import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
-import { Venue } from '../venues/venue.entity';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm' 
+import { Link } from 'src/shared/entities/link.entity' 
+import { Picture } from 'src/shared/entities/picture.entity' 
+import { Location } from 'src/shared/entities/location.entity' 
+import { ProfilePicture } from 'src/shared/entities/profile-picture.entity' 
+import { Venue } from '../venues/venue.entity' 
 
 @Entity()
 export class Event {
@@ -11,7 +11,7 @@ export class Event {
   id: number
   
   @Column()
-  name: string;
+  name: string 
 
   @Column({ nullable: true })
   description: string

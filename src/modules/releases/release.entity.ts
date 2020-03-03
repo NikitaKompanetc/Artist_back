@@ -1,15 +1,15 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm';
-import { Link } from 'src/shared/entities/link.entity';
-import { Format } from 'src/shared/entities/format.entity';
-import { Style } from 'src/shared/entities/style.entity';
-import { Genre } from 'src/shared/entities/genre.entity';
-import { Picture } from 'src/shared/entities/picture.entity';
-import { Location } from 'src/shared/entities/location.entity';
-import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
-import { Label } from 'src/modules/labels/label.entity';
-import { Track } from '../tracks/track.entity';
-import { MasterRelease } from '../masterReleases/masterRelease.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm' 
+import { Link } from 'src/shared/entities/link.entity' 
+import { Format } from 'src/modules/formats/format.entity' 
+import { Picture } from 'src/shared/entities/picture.entity' 
+import { Location } from 'src/shared/entities/location.entity' 
+import { ProfilePicture } from 'src/shared/entities/profile-picture.entity' 
+import { Label } from 'src/modules/labels/label.entity' 
+import { Track } from '../tracks/track.entity' 
+import { MasterRelease } from '../masterReleases/masterRelease.entity' 
+import { Style } from '../styles/style.entity' 
+import { Genre } from '../genres/genre.entity' 
 
 @Entity()
 export class Release {
@@ -17,7 +17,7 @@ export class Release {
   id: number
   
   @Column()
-  name: string;
+  name: string 
 
   @Column({ nullable: true })
   description: string

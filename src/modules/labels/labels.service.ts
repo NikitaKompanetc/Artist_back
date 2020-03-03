@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { DeleteResult } from  'typeorm';
-import { Label } from './label.entity';
+import { Injectable } from '@nestjs/common' 
+import { InjectRepository } from '@nestjs/typeorm' 
+import { Repository } from 'typeorm' 
+import { DeleteResult } from  'typeorm' 
+import { Label } from './label.entity' 
 
 @Injectable()
 export class LabelsService {
@@ -12,22 +12,22 @@ export class LabelsService {
   ) { }
 
   findAll(): Promise<Label[]> {
-    return this.labelRepository.find();
+    return this.labelRepository.find() 
   }
 
   findOne(id): Promise<Label> {
-    return this.labelRepository.findOne(id);
+    return this.labelRepository.findOne(id) 
   }
 
   create(artist: Label): Promise<Label> {
-    return this.labelRepository.save(artist);
+    return this.labelRepository.save(artist) 
   }
 
   update(artist: Label): Promise<Label> {
-    return this.labelRepository.save(artist);
+    return this.labelRepository.save(artist) 
   }
 
   delete(id): Promise<DeleteResult> {
-    return this.labelRepository.delete(id);
+    return this.labelRepository.delete(id) 
   }
 }

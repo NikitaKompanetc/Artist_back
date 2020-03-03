@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common';
-import { DeleteResult } from 'typeorm';
-import { Event } from './event.entity';
-import { EventsService } from './events.service';
+import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common' 
+import { DeleteResult } from 'typeorm' 
+import { Event } from './event.entity' 
+import { EventsService } from './events.service' 
 
 @Controller('events')
 export class EventsController {
@@ -9,27 +9,27 @@ export class EventsController {
 
 	@Get()
 	getEvents(): Promise<Event[]> {
-    return this.eventsService.findAll();
+    return this.eventsService.findAll() 
 	}
 	
 	@Get(':id') 
 	getEvent(@Param('id') id) {
-		return this.eventsService.findOne(id);
+		return this.eventsService.findOne(id) 
 	}
 
   @Post()
   createEvent(@Body() eventData: Event): Promise<Event> {
-    return this.eventsService.create(eventData);
+    return this.eventsService.create(eventData) 
   }
 
   @Put(':id')
   updateEvent(@Param('id') id, @Body() eventData: Event): Promise<Event> {
-    eventData.id = Number(id);
-    return this.eventsService.update(eventData);
+    eventData.id = Number(id) 
+    return this.eventsService.update(eventData) 
   }
 
   @Delete(':id')
   deleteEvent(@Param('id') id): Promise<DeleteResult> {
-    return this.eventsService.delete(id);
+    return this.eventsService.delete(id) 
   }
 }

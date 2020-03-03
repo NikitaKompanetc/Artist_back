@@ -1,10 +1,10 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm';
-import { Link } from 'src/shared/entities/link.entity';
-import { Picture } from 'src/shared/entities/picture.entity';
-import { Location } from 'src/shared/entities/location.entity';
-import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
-import { Event } from '../events/event.entity';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm' 
+import { Link } from 'src/shared/entities/link.entity' 
+import { Picture } from 'src/shared/entities/picture.entity' 
+import { Location } from 'src/shared/entities/location.entity' 
+import { ProfilePicture } from 'src/shared/entities/profile-picture.entity' 
+import { Event } from '../events/event.entity' 
 
 @Entity()
 export class Venue {
@@ -12,7 +12,7 @@ export class Venue {
   id: number
   
   @Column()
-  name: string;
+  name: string 
 
   @Column({ nullable: true })
   description: string

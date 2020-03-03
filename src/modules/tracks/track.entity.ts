@@ -1,7 +1,7 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm';
-import { Picture } from 'src/shared/entities/picture.entity';
-import { ProfilePicture } from 'src/shared/entities/profile-picture.entity';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm' 
+import { Picture } from 'src/shared/entities/picture.entity' 
+import { ProfilePicture } from 'src/shared/entities/profile-picture.entity' 
 
 @Entity()
 export class Track {

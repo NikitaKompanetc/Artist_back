@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { DeleteResult } from  'typeorm';
-import { Release } from './release.entity';
+import { Injectable } from '@nestjs/common' 
+import { InjectRepository } from '@nestjs/typeorm' 
+import { Repository } from 'typeorm' 
+import { DeleteResult } from  'typeorm' 
+import { Release } from './release.entity' 
 
 @Injectable()
 export class ReleasesService {
@@ -12,22 +12,22 @@ export class ReleasesService {
   ) { }
 
   findAll(): Promise<Release[]> {
-    return this.releaseRepository.find();
+    return this.releaseRepository.find() 
   }
 
   findOne(id): Promise<Release> {
-    return this.releaseRepository.findOne(id);
+    return this.releaseRepository.findOne(id) 
   }
 
   create(release: Release): Promise<Release> {
-    return this.releaseRepository.save(release);
+    return this.releaseRepository.save(release) 
   }
 
   update(release: Release): Promise<Release> {
-    return this.releaseRepository.save(release);
+    return this.releaseRepository.save(release) 
   }
 
   delete(id): Promise<DeleteResult> {
-    return this.releaseRepository.delete(id);
+    return this.releaseRepository.delete(id) 
   }
 }

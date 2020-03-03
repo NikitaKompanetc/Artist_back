@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Release } from '../releases/release.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm' 
+import { Release } from '../releases/release.entity' 
 
 @Entity()
 export class MasterRelease {

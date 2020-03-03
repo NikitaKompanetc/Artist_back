@@ -1,5 +1,5 @@
-import { Genre } from "./genre";
-import { Style } from "./style";
+import { Genre } from "./genre" 
+import { Style } from "./style" 
 
 export enum ArtistType {
   ARTIST = 'artist'
@@ -20,8 +20,8 @@ export interface Artist {
   id: number
   type: ArtistType
   location?: Location
-  profilePicture?: { url: string; }
-  pictureList?: Array<{ url: string; name?: string; }>
+  profilePicture?: { url: string  }
+  pictureList?: Array<{ url: string; name?: string  }>
   memberList?: Artist[]
   memberOf?: Artist[]
   genreList?: Genre[]

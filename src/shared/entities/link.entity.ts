@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Artist } from 'src/modules/artists/artist.entity';
-import { Release } from 'src/modules/releases/release.entity';
-import { Event } from 'src/modules/events/event.entity';
-import { Label } from '../../modules/labels/label.entity';
-import { Venue } from 'src/modules/venues/venue.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm' 
+import { Artist } from 'src/modules/artists/artist.entity' 
+import { Release } from 'src/modules/releases/release.entity' 
+import { Event } from 'src/modules/events/event.entity' 
+import { Label } from '../../modules/labels/label.entity' 
+import { Venue } from 'src/modules/venues/venue.entity' 
 
 @Entity()
 export class Link {

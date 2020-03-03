@@ -1,10 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Artist } from 'src/modules/artists/artist.entity';
-import { Release } from 'src/modules/releases/release.entity';
-import { Label } from 'src/modules/labels/label.entity';
-import { Track } from 'src/modules/tracks/track.entity';
-import { Venue } from 'src/modules/venues/venue.entity';
-import { Event } from 'src/modules/events/event.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm' 
+import { Artist } from 'src/modules/artists/artist.entity' 
+import { Release } from 'src/modules/releases/release.entity' 
+import { Label } from 'src/modules/labels/label.entity' 
+import { Track } from 'src/modules/tracks/track.entity' 
+import { Venue } from 'src/modules/venues/venue.entity' 
+import { Event } from 'src/modules/events/event.entity' 
 
 @Entity()
 export class Picture {
