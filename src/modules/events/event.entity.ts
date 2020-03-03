@@ -43,7 +43,9 @@ export class Event {
   linkList: Link[]
 
   @ManyToOne(type => Venue, venue => venue.eventList, {
-    eager: true
+    eager: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
   })
   venue: Venue
 }

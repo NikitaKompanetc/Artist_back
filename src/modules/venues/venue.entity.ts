@@ -43,6 +43,8 @@ export class Venue {
   })
   linkList: Link[]
 
-  @OneToMany(type => Event, event => event.venue)
+  @OneToMany(type => Event, event => event.venue, {
+    cascade: true
+  })
   eventList: Event[]
 }
