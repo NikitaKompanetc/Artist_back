@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common' 
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from  '@nestjs/common' 
 import { DeleteResult } from 'typeorm' 
 import { FormatsService } from './formats.service' 
 import { Format } from './format.entity' 
@@ -8,8 +8,8 @@ export class FormatsController {
 	constructor(private formatsService: FormatsService) {}
 
 	@Get()
-	getFormats(): Promise<Format[]> {
-    return this.formatsService.findAll() 
+	getFormats(@Query('autocomplete') autocomplete: string): Promise<Format[]> {
+    return this.formatsService.findAll({ autocomplete }) 
 	}
 	
 	@Get(':id') 

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common' 
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from  '@nestjs/common' 
 import { DeleteResult } from 'typeorm' 
 import { LabelsService } from './labels.service' 
 import { Label } from './label.entity' 
@@ -8,8 +8,8 @@ export class LabelsController {
 	constructor(private labelsService: LabelsService) {}
 
 	@Get()
-	getLabels(): Promise<Label[]> {
-    return this.labelsService.findAll() 
+	getLabels(@Query('autocomplete') autocomplete: string): Promise<Label[]> {
+    return this.labelsService.findAll({ autocomplete }) 
 	}
 	
 	@Get(':id') 

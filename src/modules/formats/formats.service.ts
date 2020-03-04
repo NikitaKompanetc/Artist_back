@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common' 
 import { InjectRepository } from '@nestjs/typeorm' 
-import { Repository } from 'typeorm' 
+import { Repository, Like } from 'typeorm' 
 import { DeleteResult } from  'typeorm' 
 import { Format } from './format.entity' 
 
@@ -11,8 +11,14 @@ export class FormatsService {
     private readonly formatRepository: Repository<Format>
   ) { }
 
-  findAll(): Promise<Format[]> {
-    return this.formatRepository.find() 
+  findAll({ autocomplete }): Promise<Format[]> {
+    const options: any = {};
+    if (autocomplete) {
+      options.where = {
+        name: Like(`%${autocomplete}%`)
+      }
+    }
+    return this.formatRepository.find(options) 
   }
 
   findOne(id): Promise<Format> {

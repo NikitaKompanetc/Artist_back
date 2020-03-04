@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common' 
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from  '@nestjs/common' 
 import { DeleteResult } from 'typeorm' 
 import { Track } from './track.entity' 
 import { TracksService } from './tracks.service' 
@@ -8,8 +8,8 @@ export class TracksController {
 	constructor(private tracksService: TracksService) {}
 
 	@Get()
-	getTracks(): Promise<Track[]> {
-    return this.tracksService.findAll() 
+	getTracks(@Query('autocomplete') autocomplete: string): Promise<Track[]> {
+    return this.tracksService.findAll({ autocomplete }) 
 	}
 	
 	@Get(':id') 
