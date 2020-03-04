@@ -3,6 +3,7 @@ import { ProfilePicture } from '../../shared/entities/profile-picture.entity'
 import { Picture } from '../../shared/entities/picture.entity' 
 import { Location } from '../../shared/entities/location.entity' 
 import { Link } from '../../shared/entities/link.entity' 
+import { Release } from '../releases/release.entity'
 
 @Entity()
 export class Label {
@@ -27,6 +28,9 @@ export class Label {
     eager: true,
   })
   pictureList: Picture[]
+
+  @OneToMany(type => Release, release => release.label)
+  releaseList: Release[]
 
   @OneToOne(type => Location, {
     cascade: true,

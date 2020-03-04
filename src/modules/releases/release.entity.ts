@@ -45,14 +45,14 @@ export class Release {
   @Column({ nullable: true })
 	publishedAt: string
 
-  @ManyToOne(type => Label, {
+  @ManyToOne(type => Label, label => label.releaseList, {
     eager: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
   })
   label: Label
 
-  @ManyToMany(type => Track, {
-    eager: true,
-  })
+  @ManyToMany(type => Track)
   @JoinTable()
   trackList: Track[]
 
@@ -80,6 +80,9 @@ export class Release {
   })
   linkList: Link[]
 
-  @ManyToOne(type => MasterRelease, masterRelease => masterRelease.releaseList)
+  @ManyToOne(type => MasterRelease, masterRelease => masterRelease.releaseList, {
+    onDelete: 'SET NULL',
+    onUpdate: 'SET NULL'
+  })
   masterRelease: MasterRelease
 }

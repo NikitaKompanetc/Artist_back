@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common' 
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from  '@nestjs/common' 
 import { DeleteResult } from 'typeorm' 
 import { VenuesService } from './venues.service' 
 import { Venue } from './venue.entity' 
@@ -8,8 +8,8 @@ export class VenuesController {
 	constructor(private venuesService: VenuesService) {}
 
 	@Get()
-	getVenues(): Promise<Venue[]> {
-    return this.venuesService.findAll() 
+	getVenues(@Query() query): Promise<{ venues: Venue[] , totalCount: number }> {
+    return this.venuesService.findAll(query) 
 	}
 	
 	@Get(':id') 

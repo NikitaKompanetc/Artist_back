@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common' 
 import { InjectRepository } from '@nestjs/typeorm' 
-import { Repository } from 'typeorm' 
+import { Repository, Like } from 'typeorm' 
 import { DeleteResult } from  'typeorm' 
 import { Track } from './track.entity' 
 
@@ -11,8 +11,18 @@ export class TracksService {
     private readonly trackRepository: Repository<Track>,
   ) { }
 
-  findAll(): Promise<Track[]> {
-    return this.trackRepository.find() 
+  async findAll(query): Promise<{ tracks: Track[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
+      options.where = {
+        name: Like(`%${query.autocomplete}%`)
+      }
+    }
+    const [tracks, totalCount] = await this.trackRepository.findAndCount(options);
+    return { tracks, totalCount }
   }
 
   findOne(id): Promise<Track> {

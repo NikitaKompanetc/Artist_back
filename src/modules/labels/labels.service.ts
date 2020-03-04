@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common' 
 import { InjectRepository } from '@nestjs/typeorm' 
-import { Repository } from 'typeorm' 
+import { Repository, Like } from 'typeorm' 
 import { DeleteResult } from  'typeorm' 
 import { Label } from './label.entity' 
 
@@ -11,8 +11,18 @@ export class LabelsService {
     private readonly labelRepository: Repository<Label>,
   ) { }
 
-  findAll(): Promise<Label[]> {
-    return this.labelRepository.find() 
+  async findAll(query): Promise<{ labels: Label[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
+      options.where = {
+        name: Like(`%${query.autocomplete}%`)
+      }
+    }
+    const [labels, totalCount] = await this.labelRepository.findAndCount(options);
+    return { labels, totalCount }
   }
 
   findOne(id): Promise<Label> {

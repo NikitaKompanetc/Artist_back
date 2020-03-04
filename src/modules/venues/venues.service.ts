@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common' 
 import { InjectRepository } from '@nestjs/typeorm' 
-import { Repository } from 'typeorm' 
+import { Repository, Like } from 'typeorm' 
 import { DeleteResult } from  'typeorm' 
 import { Venue } from './venue.entity' 
 
@@ -11,8 +11,18 @@ export class VenuesService {
     private readonly venueRepository: Repository<Venue>,
   ) { }
 
-  findAll(): Promise<Venue[]> {
-    return this.venueRepository.find() 
+  async findAll(query): Promise<{ venues: Venue[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
+      options.where = {
+        name: Like(`%${query.autocomplete}%`)
+      }
+    }
+    const [venues, totalCount] = await this.venueRepository.findAndCount(options);
+    return { venues, totalCount }
   }
 
   findOne(id): Promise<Venue> {

@@ -8,8 +8,8 @@ export class GenresController {
 	constructor(private genresService: GenresService) {}
 
 	@Get()
-	getGenres(@Query('autocomplete') autocomplete: string): Promise<Genre[]> {
-    return this.genresService.findAll({ autocomplete })
+	getGenres(@Query() query): Promise<{ genres: Genre[] , totalCount: number }> {
+    return this.genresService.findAll(query)
 	}
 	
 	@Get(':id') 

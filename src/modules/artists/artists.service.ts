@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common' 
 import { InjectRepository } from '@nestjs/typeorm' 
-import { Repository } from 'typeorm' 
+import { Repository, Like } from 'typeorm' 
 import { Artist } from './artist.entity' 
 import { DeleteResult } from  'typeorm' 
 
@@ -11,8 +11,18 @@ export class ArtistsService {
     private readonly artistRepository: Repository<Artist>
   ) { }
 
-  findAll(): Promise<Artist[]> {
-    return this.artistRepository.find() 
+  async findAll(query): Promise<{ artists: Artist[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
+      options.where = {
+        name: Like(`%${query.autocomplete}%`)
+      }
+    }
+    const [artists, totalCount] = await this.artistRepository.findAndCount(options);
+    return { artists, totalCount }
   }
 
   async findOne(id): Promise<Artist> {

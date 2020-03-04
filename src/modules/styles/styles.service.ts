@@ -11,14 +11,18 @@ export class StylesService {
     private readonly styleRepository: Repository<Style>
   ) { }
 
-  findAll({ autocomplete }): Promise<Style[]> {
-    const options: any = {};
-    if (autocomplete) {
+  async findAll(query): Promise<{ styles: Style[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
       options.where = {
-        name: Like(`%${autocomplete}%`)
+        name: Like(`%${query.autocomplete}%`)
       }
     }
-    return this.styleRepository.find(options) 
+    const [styles, totalCount] = await this.styleRepository.findAndCount(options);
+    return { styles, totalCount }
   }
 
   findOne(id): Promise<Style> {

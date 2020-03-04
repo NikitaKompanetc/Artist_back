@@ -6,6 +6,7 @@ import { ProfilePicture } from 'src/shared/entities/profile-picture.entity'
 import { Picture } from 'src/shared/entities/picture.entity' 
 import { Style } from '../styles/style.entity' 
 import { Genre } from '../genres/genre.entity' 
+import { Track } from '../tracks/track.entity'
 
 @Entity()
 export class Artist {
@@ -66,5 +67,8 @@ export class Artist {
 	 	cascade: true,
 		eager: true,
 	})
-	linkList: Link[]
+  linkList: Link[]
+  
+  @OneToMany(type => Track, track => track.who)
+  trackList: Track[]
 }
