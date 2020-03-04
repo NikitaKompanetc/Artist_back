@@ -45,8 +45,10 @@ export class Release {
   @Column({ nullable: true })
 	publishedAt: string
 
-  @ManyToOne(type => Label, {
+  @ManyToOne(type => Label, label => label.releaseList, {
     eager: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
   })
   label: Label
 
