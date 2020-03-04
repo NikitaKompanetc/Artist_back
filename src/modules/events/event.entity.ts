@@ -44,8 +44,8 @@ export class Event {
 
   @ManyToOne(type => Venue, venue => venue.eventList, {
     eager: true,
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
+    onDelete: 'SET NULL',
+    onUpdate: 'SET NULL'
   })
   venue: Venue
 }

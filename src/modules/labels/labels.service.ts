@@ -11,15 +11,18 @@ export class LabelsService {
     private readonly labelRepository: Repository<Label>,
   ) { }
 
-  findAll({ autocomplete }): Promise<Label[]> {
-    const options: any = {};
-    if (autocomplete) {
+  async findAll(query): Promise<{ labels: Label[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
       options.where = {
-        name: Like(`%${autocomplete}%`)
+        name: Like(`%${query.autocomplete}%`)
       }
-      options.take = 5;
     }
-    return this.labelRepository.find(options) 
+    const [labels, totalCount] = await this.labelRepository.findAndCount(options);
+    return { labels, totalCount }
   }
 
   findOne(id): Promise<Label> {

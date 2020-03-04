@@ -8,8 +8,8 @@ export class FormatsController {
 	constructor(private formatsService: FormatsService) {}
 
 	@Get()
-	getFormats(@Query('autocomplete') autocomplete: string): Promise<Format[]> {
-    return this.formatsService.findAll({ autocomplete }) 
+	getFormats(@Query() query): Promise<{ formats: Format[] , totalCount: number }> {
+    return this.formatsService.findAll(query) 
 	}
 	
 	@Get(':id') 

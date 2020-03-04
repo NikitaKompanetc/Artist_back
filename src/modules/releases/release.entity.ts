@@ -52,6 +52,9 @@ export class Release {
   })
   label: Label
 
+  @ManyToMany(type => Track)
+  @JoinTable()
+  trackList: Track[]
 
   @ManyToMany(type => Format, {
     eager: true,
@@ -77,6 +80,9 @@ export class Release {
   })
   linkList: Link[]
 
-  @ManyToOne(type => MasterRelease, masterRelease => masterRelease.releaseList)
+  @ManyToOne(type => MasterRelease, masterRelease => masterRelease.releaseList, {
+    onDelete: 'SET NULL',
+    onUpdate: 'SET NULL'
+  })
   masterRelease: MasterRelease
 }

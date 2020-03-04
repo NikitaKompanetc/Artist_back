@@ -8,8 +8,8 @@ export class LabelsController {
 	constructor(private labelsService: LabelsService) {}
 
 	@Get()
-	getLabels(@Query('autocomplete') autocomplete: string): Promise<Label[]> {
-    return this.labelsService.findAll({ autocomplete }) 
+	getLabels(@Query() query): Promise<{ labels: Label[] , totalCount: number }> {
+    return this.labelsService.findAll(query) 
 	}
 	
 	@Get(':id') 

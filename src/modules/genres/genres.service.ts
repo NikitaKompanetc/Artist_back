@@ -11,15 +11,18 @@ export class GenresService {
     private readonly genreRepository: Repository<Genre>
   ) { }
 
-  findAll({ autocomplete }): Promise<Genre[]> {
-    const options: any = {};
-    if (autocomplete) {
+  async findAll(query): Promise<{ genres: Genre[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
       options.where = {
-        name: Like(`%${autocomplete}%`)
+        name: Like(`%${query.autocomplete}%`)
       }
-      options.take = 5;
     }
-    return this.genreRepository.find(options)
+    const [genres, totalCount] = await this.genreRepository.findAndCount(options);
+    return { genres, totalCount }
   }
 
   findOne(id): Promise<Genre> {

@@ -11,15 +11,18 @@ export class FormatsService {
     private readonly formatRepository: Repository<Format>
   ) { }
 
-  findAll({ autocomplete }): Promise<Format[]> {
-    const options: any = {};
-    if (autocomplete) {
+  async findAll(query): Promise<{ formats: Format[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
       options.where = {
-        name: Like(`%${autocomplete}%`)
+        name: Like(`%${query.autocomplete}%`)
       }
-      options.take = 5;
     }
-    return this.formatRepository.find(options) 
+    const [formats, totalCount] = await this.formatRepository.findAndCount(options);
+    return { formats, totalCount }
   }
 
   findOne(id): Promise<Format> {

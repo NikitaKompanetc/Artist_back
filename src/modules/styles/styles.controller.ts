@@ -8,8 +8,8 @@ export class StylesController {
 	constructor(private stylesService: StylesService) {}
 
 	@Get()
-	getStyles(@Query('autocomplete') autocomplete: string): Promise<Style[]> {
-    return this.stylesService.findAll({ autocomplete })
+	getStyles(@Query() query): Promise<{ styles: Style[] , totalCount: number }> {
+    return this.stylesService.findAll(query)
   }
 	
 	@Get(':id') 

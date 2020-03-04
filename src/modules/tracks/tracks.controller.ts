@@ -8,8 +8,8 @@ export class TracksController {
 	constructor(private tracksService: TracksService) {}
 
 	@Get()
-	getTracks(@Query('autocomplete') autocomplete: string): Promise<Track[]> {
-    return this.tracksService.findAll({ autocomplete }) 
+	getTracks(@Query() query): Promise<{ tracks: Track[] , totalCount: number }> {
+    return this.tracksService.findAll(query) 
 	}
 	
 	@Get(':id') 

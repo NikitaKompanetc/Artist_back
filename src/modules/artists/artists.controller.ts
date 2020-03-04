@@ -8,8 +8,8 @@ export class ArtistsController {
 	constructor(private artistsService: ArtistsService) {}
 
 	@Get()
-	getArtists(@Query('autocomplete') autocomplete: string): Promise<Artist[]> {
-    return this.artistsService.findAll({ autocomplete }) 
+	getArtists(@Query() query): Promise<{ artists: Artist[] , totalCount: number }> {
+    return this.artistsService.findAll(query) 
 	}
 	
 	@Get(':id') 

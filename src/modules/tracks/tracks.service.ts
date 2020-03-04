@@ -11,15 +11,18 @@ export class TracksService {
     private readonly trackRepository: Repository<Track>,
   ) { }
 
-  findAll({ autocomplete }): Promise<Track[]> {
-    const options: any = {};
-    if (autocomplete) {
+  async findAll(query): Promise<{ tracks: Track[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
       options.where = {
-        name: Like(`%${autocomplete}%`)
+        name: Like(`%${query.autocomplete}%`)
       }
-      options.take = 5;
     }
-    return this.trackRepository.find(options) 
+    const [tracks, totalCount] = await this.trackRepository.findAndCount(options);
+    return { tracks, totalCount }
   }
 
   findOne(id): Promise<Track> {

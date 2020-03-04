@@ -11,15 +11,18 @@ export class ArtistsService {
     private readonly artistRepository: Repository<Artist>
   ) { }
 
-  findAll({ autocomplete }): Promise<Artist[]> {
-    const options: any = {};
-    if (autocomplete) {
+  async findAll(query): Promise<{ artists: Artist[] , totalCount: number }> {
+    const options: any = {
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
       options.where = {
-        name: Like(`%${autocomplete}%`)
+        name: Like(`%${query.autocomplete}%`)
       }
-      options.take = 5;
     }
-    return this.artistRepository.find(options) 
+    const [artists, totalCount] = await this.artistRepository.findAndCount(options);
+    return { artists, totalCount }
   }
 
   async findOne(id): Promise<Artist> {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common' 
 import { InjectRepository } from '@nestjs/typeorm' 
-import { Repository } from 'typeorm' 
+import { Repository, Like } from 'typeorm' 
 import { DeleteResult } from  'typeorm' 
 import { Release } from './release.entity' 
 
@@ -11,12 +11,25 @@ export class ReleasesService {
     private readonly releaseRepository: Repository<Release>,
   ) { }
 
-  findAll(): Promise<Release[]> {
-    return this.releaseRepository.find() 
+  async findAll(query): Promise<{ releases: Release[] , totalCount: number }> {
+    const options: any = {
+      relations: ['trackList'],
+      take: query.take,
+      skip: query.skip
+    };
+    if (query.autocomplete) {
+      options.where = {
+        name: Like(`%${query.autocomplete}%`)
+      }
+    }
+    const [releases, totalCount] = await this.releaseRepository.findAndCount(options);
+    return { releases, totalCount }
   }
 
   findOne(id): Promise<Release> {
-    return this.releaseRepository.findOne(id) 
+    return this.releaseRepository.findOne(id, {
+      relations: ['trackList']
+    }) 
   }
 
   create(release: Release): Promise<Release> {
