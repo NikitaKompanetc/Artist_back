@@ -17,6 +17,7 @@ export class TracksService {
       options.where = {
         name: Like(`%${autocomplete}%`)
       }
+      options.take = 5;
     }
     return this.trackRepository.find(options) 
   }

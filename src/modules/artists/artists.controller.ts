@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from  '@nestjs/common' 
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from  '@nestjs/common' 
 import { ArtistsService } from './artists.service' 
 import { DeleteResult } from 'typeorm' 
 import { Artist } from './artist.entity' 
@@ -8,8 +8,8 @@ export class ArtistsController {
 	constructor(private artistsService: ArtistsService) {}
 
 	@Get()
-	getArtists(): Promise<Artist[]> {
-    return this.artistsService.findAll() 
+	getArtists(@Query('autocomplete') autocomplete: string): Promise<Artist[]> {
+    return this.artistsService.findAll({ autocomplete }) 
 	}
 	
 	@Get(':id') 

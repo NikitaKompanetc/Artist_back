@@ -52,11 +52,6 @@ export class Release {
   })
   label: Label
 
-  @ManyToMany(type => Track, {
-    eager: true,
-  })
-  @JoinTable()
-  trackList: Track[]
 
   @ManyToMany(type => Format, {
     eager: true,

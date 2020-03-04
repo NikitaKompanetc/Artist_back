@@ -17,6 +17,7 @@ export class GenresService {
       options.where = {
         name: Like(`%${autocomplete}%`)
       }
+      options.take = 5;
     }
     return this.genreRepository.find(options)
   }

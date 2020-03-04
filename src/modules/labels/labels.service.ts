@@ -17,6 +17,7 @@ export class LabelsService {
       options.where = {
         name: Like(`%${autocomplete}%`)
       }
+      options.take = 5;
     }
     return this.labelRepository.find(options) 
   }

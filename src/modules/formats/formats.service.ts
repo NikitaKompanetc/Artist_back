@@ -17,6 +17,7 @@ export class FormatsService {
       options.where = {
         name: Like(`%${autocomplete}%`)
       }
+      options.take = 5;
     }
     return this.formatRepository.find(options) 
   }

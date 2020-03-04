@@ -17,6 +17,7 @@ export class StylesService {
       options.where = {
         name: Like(`%${autocomplete}%`)
       }
+      options.take = 5;
     }
     return this.styleRepository.find(options) 
   }

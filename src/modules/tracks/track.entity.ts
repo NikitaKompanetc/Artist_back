@@ -1,7 +1,8 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm' 
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm' 
 import { Picture } from 'src/shared/entities/picture.entity' 
 import { ProfilePicture } from 'src/shared/entities/profile-picture.entity' 
+import { Artist } from '../artists/artist.entity'
 
 @Entity()
 export class Track {
@@ -11,8 +12,10 @@ export class Track {
   @Column()
   name: string
 
-  @Column()
-  who: string
+  @ManyToOne(type => Artist, venue => venue.trackList, {
+    eager: true
+  })
+  who: Artist
 
   @Column()
   year: number
