@@ -30,9 +30,15 @@ export interface Event {
   name: string 
   
   description?: string 
-  linkList?: Array<{ name: string; url: string }> 
+  linkList?: Array<{ 
+    name: string 
+    url: string 
+  }> 
   profilePicture?: { url: string  } 
-  pictureList?: Array<{ url: string; name?: string  }> 
+  pictureList?: Array<{ 
+    url: string 
+    name?: string  
+  }> 
   location?: Location 
   
   venue?: Venue 

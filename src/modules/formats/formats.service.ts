@@ -15,13 +15,13 @@ export class FormatsService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [formats, totalCount] = await this.formatRepository.findAndCount(options);
+    const [formats, totalCount] = await this.formatRepository.findAndCount(options)
     return { formats, totalCount }
   }
 

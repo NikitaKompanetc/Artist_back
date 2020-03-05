@@ -15,13 +15,13 @@ export class StylesService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [styles, totalCount] = await this.styleRepository.findAndCount(options);
+    const [styles, totalCount] = await this.styleRepository.findAndCount(options)
     return { styles, totalCount }
   }
 

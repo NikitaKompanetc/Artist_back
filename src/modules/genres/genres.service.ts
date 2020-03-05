@@ -15,13 +15,13 @@ export class GenresService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [genres, totalCount] = await this.genreRepository.findAndCount(options);
+    const [genres, totalCount] = await this.genreRepository.findAndCount(options)
     return { genres, totalCount }
   }
 

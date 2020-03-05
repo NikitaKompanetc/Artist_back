@@ -15,13 +15,13 @@ export class MasterReleasesService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [masterReleases, totalCount] = await this.masterReleaseRepository.findAndCount(options);
+    const [masterReleases, totalCount] = await this.masterReleaseRepository.findAndCount(options)
     return { masterReleases, totalCount }
   }
 

@@ -21,10 +21,16 @@ export interface Artist {
   type: ArtistType
   location?: Location
   profilePicture?: { url: string  }
-  pictureList?: Array<{ url: string; name?: string  }>
+  pictureList?: Array<{ 
+    url: string 
+    name?: string  
+  }>
   memberList?: Artist[]
   memberOf?: Artist[]
   genreList?: Genre[]
   styleList?: Style[]
-  linkList: Array<{ name: string; url: string }>
+  linkList: Array<{ 
+    name: string 
+    url: string 
+  }>
 }

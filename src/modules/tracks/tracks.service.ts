@@ -15,13 +15,13 @@ export class TracksService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [tracks, totalCount] = await this.trackRepository.findAndCount(options);
+    const [tracks, totalCount] = await this.trackRepository.findAndCount(options)
     return { tracks, totalCount }
   }
 

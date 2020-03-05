@@ -16,13 +16,13 @@ export class ReleasesService {
       relations: ['trackList'],
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [releases, totalCount] = await this.releaseRepository.findAndCount(options);
+    const [releases, totalCount] = await this.releaseRepository.findAndCount(options)
     return { releases, totalCount }
   }
 

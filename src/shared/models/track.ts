@@ -4,5 +4,8 @@ export interface Track {
   who: string,
   year: number
   profilePicture?: { url: string  }
-  pictureList?: Array<{ url: string; name?: string  }>
+  pictureList?: Array<{ 
+    url: string 
+    name?: string  
+  }>
 }
