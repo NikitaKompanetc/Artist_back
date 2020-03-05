@@ -47,8 +47,8 @@ export class Release {
 
   @ManyToOne(type => Label, label => label.releaseList, {
     eager: true,
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
+    onDelete: "SET NULL",
+    onUpdate: "SET NULL"
   })
   label: Label
 

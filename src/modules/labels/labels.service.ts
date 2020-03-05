@@ -15,13 +15,13 @@ export class LabelsService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [labels, totalCount] = await this.labelRepository.findAndCount(options);
+    const [labels, totalCount] = await this.labelRepository.findAndCount(options)
     return { labels, totalCount }
   }
 

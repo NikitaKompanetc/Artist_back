@@ -17,13 +17,19 @@ export interface Release {
   publishedAt?: Date
   id: number
   profilePicture?: { url: string  }
-  pictureList?: Array<{ url: string; name?: string  }>
+  pictureList?: Array<{ 
+    url: string 
+    name?: string  
+  }>
   name: string
   label?: Label
   formatList?: Format[]
   location?: Location
   description?: string
-  linkList?: Array<{ name: string; url: string }>
+  linkList?: Array<{ 
+    name: string 
+    url: string 
+  }>
   genreList?: Genre[]
   styleList?: Style[]
   trackList?: Track[]

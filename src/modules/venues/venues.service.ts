@@ -15,13 +15,13 @@ export class VenuesService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [venues, totalCount] = await this.venueRepository.findAndCount(options);
+    const [venues, totalCount] = await this.venueRepository.findAndCount(options)
     return { venues, totalCount }
   }
 

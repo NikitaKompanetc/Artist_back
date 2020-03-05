@@ -15,13 +15,13 @@ export class ArtistsService {
     const options: any = {
       take: query.take,
       skip: query.skip
-    };
+    }
     if (query.autocomplete) {
       options.where = {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [artists, totalCount] = await this.artistRepository.findAndCount(options);
+    const [artists, totalCount] = await this.artistRepository.findAndCount(options)
     return { artists, totalCount }
   }
 
