@@ -13,7 +13,7 @@ export class Event {
   @Column()
   name: string 
 
-  @Column({ nullable: true })
+  @Column()
   description: string
 
   @OneToOne(type => Location, {
@@ -43,9 +43,10 @@ export class Event {
   linkList: Link[]
 
   @ManyToOne(type => Venue, venue => venue.eventList, {
+    nullable: true,
     eager: true,
-    onDelete: 'SET NULL',
-    onUpdate: 'SET NULL'
+    onDelete: "SET NULL",
+    onUpdate: "SET NULL"
   })
   venue: Venue
 }

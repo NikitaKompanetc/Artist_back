@@ -13,7 +13,10 @@ export class Track {
   name: string
 
   @ManyToOne(type => Artist, venue => venue.trackList, {
-    eager: true
+    nullable: true,
+    eager: true,
+    onDelete: "SET NULL",
+    onUpdate: "SET NULL"
   })
   who: Artist
 

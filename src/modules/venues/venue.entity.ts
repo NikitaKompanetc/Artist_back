@@ -14,7 +14,7 @@ export class Venue {
   @Column()
   name: string 
 
-  @Column({ nullable: true })
+  @Column()
   description: string
 
   @OneToOne(type => Location, {

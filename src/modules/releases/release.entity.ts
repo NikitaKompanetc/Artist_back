@@ -19,7 +19,7 @@ export class Release {
   @Column()
   name: string 
 
-  @Column({ nullable: true })
+  @Column()
   description: string
 
   @OneToOne(type => Location, {
@@ -42,10 +42,11 @@ export class Release {
   })
   pictureList: Picture[]
 
-  @Column({ nullable: true })
+  @Column()
 	publishedAt: string
 
   @ManyToOne(type => Label, label => label.releaseList, {
+    nullable: true,
     eager: true,
     onDelete: "SET NULL",
     onUpdate: "SET NULL"
