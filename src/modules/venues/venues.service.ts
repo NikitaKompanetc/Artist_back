@@ -11,7 +11,7 @@ export class VenuesService {
     private readonly venueRepository: Repository<Venue>,
   ) { }
 
-  async findAll(query): Promise<{ venues: Venue[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Venue[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class VenuesService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [venues, totalCount] = await this.venueRepository.findAndCount(options)
-    return { venues, totalCount }
+    const [items, totalCount] = await this.venueRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Venue> {

@@ -11,7 +11,7 @@ export class GenresService {
     private readonly genreRepository: Repository<Genre>
   ) { }
 
-  async findAll(query): Promise<{ genres: Genre[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Genre[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class GenresService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [genres, totalCount] = await this.genreRepository.findAndCount(options)
-    return { genres, totalCount }
+    const [items, totalCount] = await this.genreRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Genre> {

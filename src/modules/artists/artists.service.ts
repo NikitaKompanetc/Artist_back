@@ -11,7 +11,7 @@ export class ArtistsService {
     private readonly artistRepository: Repository<Artist>
   ) { }
 
-  async findAll(query): Promise<{ artists: Artist[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Artist[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class ArtistsService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [artists, totalCount] = await this.artistRepository.findAndCount(options)
-    return { artists, totalCount }
+    const [items, totalCount] = await this.artistRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   async findOne(id): Promise<Artist> {

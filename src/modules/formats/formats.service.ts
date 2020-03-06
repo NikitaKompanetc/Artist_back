@@ -11,7 +11,7 @@ export class FormatsService {
     private readonly formatRepository: Repository<Format>
   ) { }
 
-  async findAll(query): Promise<{ formats: Format[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Format[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class FormatsService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [formats, totalCount] = await this.formatRepository.findAndCount(options)
-    return { formats, totalCount }
+    const [items, totalCount] = await this.formatRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Format> {

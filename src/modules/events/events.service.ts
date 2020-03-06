@@ -11,7 +11,7 @@ export class EventsService {
     private readonly eventRepository: Repository<Event>,
   ) { }
 
-  async findAll(query): Promise<{ events: Event[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Event[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class EventsService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [events, totalCount] = await this.eventRepository.findAndCount(options)
-    return { events, totalCount }
+    const [items, totalCount] = await this.eventRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Event> {

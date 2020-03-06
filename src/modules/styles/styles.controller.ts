@@ -8,7 +8,7 @@ export class StylesController {
 	constructor(private stylesService: StylesService) {}
 
 	@Get()
-	getStyles(@Query() query): Promise<{ styles: Style[] , totalCount: number }> {
+	getStyles(@Query() query): Promise<{ items: Style[] , totalCount: number }> {
     return this.stylesService.findAll(query)
   }
 	

@@ -11,7 +11,7 @@ export class LabelsService {
     private readonly labelRepository: Repository<Label>,
   ) { }
 
-  async findAll(query): Promise<{ labels: Label[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Label[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class LabelsService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [labels, totalCount] = await this.labelRepository.findAndCount(options)
-    return { labels, totalCount }
+    const [items, totalCount] = await this.labelRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Label> {

@@ -11,7 +11,7 @@ export class ReleasesService {
     private readonly releaseRepository: Repository<Release>,
   ) { }
 
-  async findAll(query): Promise<{ releases: Release[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Release[] , totalCount: number }> {
     const options: any = {
       relations: ['trackList'],
       take: query.take,
@@ -22,8 +22,8 @@ export class ReleasesService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [releases, totalCount] = await this.releaseRepository.findAndCount(options)
-    return { releases, totalCount }
+    const [items, totalCount] = await this.releaseRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Release> {

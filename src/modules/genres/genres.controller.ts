@@ -8,7 +8,7 @@ export class GenresController {
 	constructor(private genresService: GenresService) {}
 
 	@Get()
-	getGenres(@Query() query): Promise<{ genres: Genre[] , totalCount: number }> {
+	getGenres(@Query() query): Promise<{ items: Genre[] , totalCount: number }> {
     return this.genresService.findAll(query)
 	}
 	

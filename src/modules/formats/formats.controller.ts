@@ -8,7 +8,7 @@ export class FormatsController {
 	constructor(private formatsService: FormatsService) {}
 
 	@Get()
-	getFormats(@Query() query): Promise<{ formats: Format[] , totalCount: number }> {
+	getFormats(@Query() query): Promise<{ items: Format[] , totalCount: number }> {
     return this.formatsService.findAll(query) 
 	}
 	

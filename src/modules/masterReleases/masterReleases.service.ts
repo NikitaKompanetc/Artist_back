@@ -11,7 +11,7 @@ export class MasterReleasesService {
     private readonly masterReleaseRepository: Repository<MasterRelease>
   ) { }
 
-  async findAll(query): Promise<{ masterReleases: MasterRelease[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: MasterRelease[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class MasterReleasesService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [masterReleases, totalCount] = await this.masterReleaseRepository.findAndCount(options)
-    return { masterReleases, totalCount }
+    const [items, totalCount] = await this.masterReleaseRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<MasterRelease> {

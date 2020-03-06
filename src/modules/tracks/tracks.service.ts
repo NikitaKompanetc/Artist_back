@@ -11,7 +11,7 @@ export class TracksService {
     private readonly trackRepository: Repository<Track>,
   ) { }
 
-  async findAll(query): Promise<{ tracks: Track[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Track[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class TracksService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [tracks, totalCount] = await this.trackRepository.findAndCount(options)
-    return { tracks, totalCount }
+    const [items, totalCount] = await this.trackRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Track> {

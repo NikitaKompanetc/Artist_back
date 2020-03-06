@@ -8,7 +8,7 @@ export class EventsController {
 	constructor(private eventsService: EventsService) {}
 
 	@Get()
-	getEvents(@Query() query): Promise<{ events: Event[] , totalCount: number }> {
+	getEvents(@Query() query): Promise<{ items: Event[] , totalCount: number }> {
     return this.eventsService.findAll(query) 
 	}
 	

@@ -8,7 +8,7 @@ export class ReleasesController {
 	constructor(private releasesService: ReleasesService) {}
 
 	@Get()
-	getReleases(@Query() query): Promise<{ releases: Release[] , totalCount: number }> {
+	getReleases(@Query() query): Promise<{ items: Release[] , totalCount: number }> {
     return this.releasesService.findAll(query) 
 	}
 	

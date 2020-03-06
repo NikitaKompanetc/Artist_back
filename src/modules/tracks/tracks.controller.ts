@@ -8,7 +8,7 @@ export class TracksController {
 	constructor(private tracksService: TracksService) {}
 
 	@Get()
-	getTracks(@Query() query): Promise<{ tracks: Track[] , totalCount: number }> {
+	getTracks(@Query() query): Promise<{ items: Track[] , totalCount: number }> {
     return this.tracksService.findAll(query) 
 	}
 	

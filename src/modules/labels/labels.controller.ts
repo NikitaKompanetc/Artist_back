@@ -8,7 +8,7 @@ export class LabelsController {
 	constructor(private labelsService: LabelsService) {}
 
 	@Get()
-	getLabels(@Query() query): Promise<{ labels: Label[] , totalCount: number }> {
+	getLabels(@Query() query): Promise<{ items: Label[] , totalCount: number }> {
     return this.labelsService.findAll(query) 
 	}
 	

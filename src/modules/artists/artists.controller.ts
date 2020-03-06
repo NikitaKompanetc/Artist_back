@@ -8,7 +8,7 @@ export class ArtistsController {
 	constructor(private artistsService: ArtistsService) {}
 
 	@Get()
-	getArtists(@Query() query): Promise<{ artists: Artist[] , totalCount: number }> {
+	getArtists(@Query() query): Promise<{ items: Artist[] , totalCount: number }> {
     return this.artistsService.findAll(query) 
 	}
 	

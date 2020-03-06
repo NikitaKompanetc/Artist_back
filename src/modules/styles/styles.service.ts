@@ -11,7 +11,7 @@ export class StylesService {
     private readonly styleRepository: Repository<Style>
   ) { }
 
-  async findAll(query): Promise<{ styles: Style[] , totalCount: number }> {
+  async findAll(query): Promise<{ items: Style[] , totalCount: number }> {
     const options: any = {
       take: query.take,
       skip: query.skip
@@ -21,8 +21,8 @@ export class StylesService {
         name: Like(`%${query.autocomplete}%`)
       }
     }
-    const [styles, totalCount] = await this.styleRepository.findAndCount(options)
-    return { styles, totalCount }
+    const [items, totalCount] = await this.styleRepository.findAndCount(options)
+    return { items, totalCount }
   }
 
   findOne(id): Promise<Style> {

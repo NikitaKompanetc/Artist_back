@@ -8,7 +8,7 @@ export class VenuesController {
 	constructor(private venuesService: VenuesService) {}
 
 	@Get()
-	getVenues(@Query() query): Promise<{ venues: Venue[] , totalCount: number }> {
+	getVenues(@Query() query): Promise<{ items: Venue[] , totalCount: number }> {
     return this.venuesService.findAll(query) 
 	}
 	
