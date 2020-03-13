@@ -12,6 +12,8 @@ import { VenuesModule } from 'src/modules/venues/venues.module'
 import { EventsModule } from 'src/modules/events/events.module' 
 import { StylesModule } from 'src/modules/styles/styles.module' 
 import { FormatsModule } from 'src/modules/formats/formats.module' 
+import { UsersModule } from 'src/modules/users/users.module'
+import { AuthModule } from 'src/modules/auth/auth.module'
 
 const modules = [
   TypeOrmModule,
@@ -26,7 +28,9 @@ const modules = [
   EventsModule,
   StylesModule,
   GenresModule,
-  FormatsModule
+  FormatsModule,
+  UsersModule,
+  AuthModule
 ]
 
 @Module({
