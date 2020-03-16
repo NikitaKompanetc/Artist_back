@@ -1,52 +1,15 @@
 import { Injectable } from '@nestjs/common' 
-import { UsersService } from '../users/users.service';
-import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
-import { User } from '../users/user.entity';
-import { TokensService } from '../users/tokens.service';
-import { Token } from '../users/token.entity';
+import { UsersService } from '../users/users.service'
+import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken'
+import { User } from '../users/user.entity'
+import { TokensService } from '../tokens/tokens.service'
+import { JWT_REFRESH_SECRET, JWT_ACCESS_SECRET } from 'src/config/auth'
 
 const cookieOptions = {
-  maxAge: 9999999999,
+  maxAge: 10000000000,
   httpOnly: true,
   signed: true
-};
-const getBrowserId = req => {
-  const browserId = req.signedCookies?.browserId;
-  if (browserId) { 
-    return { 
-      browserId, 
-      haveId: true 
-    }
-  } else {
-    return { 
-      browserId: String(Date.now()),
-      haveId: false 
-    };
-  }
-};
-const createTokens = (userId, role) => {
-  return {
-    accessToken: jwt.sign(
-      {
-        userId, role
-      },
-      'process.env.JWT_ACCESS_SECRET',
-      {
-        expiresIn: '30s'//process.env.JWT_ACCESS_TIME
-      }
-    ),
-    refreshToken: jwt.sign(
-      {
-        userId, role
-      },
-      'process.env.JWT_REFRESH_SECRET',
-      {
-        expiresIn: '600s'/*process.env.JWT_REFRESH_TIME*/,
-        jwtid: String(Date.now())
-      }
-    )
-  }
 }
 
 @Injectable()
@@ -56,11 +19,23 @@ export class AuthService {
     private tokensService: TokensService
   ) { }
 
+  async getMyData(req, res) {
+    try {
+      const token = req.signedCookies.accessToken
+      const { userId, role } = await jwt.verify(token, JWT_ACCESS_SECRET)
+      res.status(200).json({ userId, role })
+    } catch (e) {
+      res.sendStatus(401)
+    }
+  }
+
   async register(req, res) {
     try {
-      const dbUser = await this.usersService.findOne({ email: req.body.email });
-      if (dbUser) {
-        return res.status(409).json({ message: 'This email is already in use' });
+      await this.tokensService.deleteToken(req, res)
+
+      const isDBUser = await this.usersService.exists({ email: req.body.email })
+      if (isDBUser) {
+        return res.status(409).json({ message: 'This email is already in use' })
       }
 
       const user = await this.usersService.create({
@@ -69,111 +44,70 @@ export class AuthService {
         role: 'user',
       } as User)
 
-      const newTokens = createTokens(user.id, user.role);
-      const { browserId, haveId } = getBrowserId(req);
+      const { accessToken, refreshToken } = await this.tokensService.attachTokens(user)
 
-      await this.tokensService.create({
-        browserId,
-        refreshTokenId: jwt.decode(newTokens.refreshToken).jti,
-        user
-      } as Token)
-
-      res.status(201)
-        .cookie('accessToken', newTokens.accessToken, cookieOptions)
-        .cookie('refreshToken', newTokens.refreshToken, cookieOptions);
-      if (!haveId) res.cookie('browserId', browserId, cookieOptions);
-      res.end();
+      res
+        .cookie('accessToken', accessToken, cookieOptions)
+        .cookie('refreshToken', refreshToken, cookieOptions)
+        .sendStatus(201)
     } catch (e) {
-      res.sendStatus(400);
+      res.sendStatus(400)
     }
   }
 
   async login(req, res) {
-    const a = await this.tokensService.findAll()
-    console.log(a)
     try {
-      const user = await this.usersService.findOne({ email: req.body.email });
-      if (!user) throw new Error;
-      const passwordMatch = await bcrypt.compare(req.body.password, user.password);
-      if (!passwordMatch) throw new Error;
+      await this.tokensService.deleteToken(req, res)
 
-      const newTokens = createTokens(user.id, user.role);
-      const { browserId, haveId } = getBrowserId(req);
-      await this.tokensService.delete({
-        browserId
-      })
-      await this.tokensService.create({
-        refreshTokenId: jwt.decode(newTokens.refreshToken).jti,
-        user,
-        browserId
-      } as Token)
+      const user = await this.usersService.findOne({ email: req.body.email })
+      const passwordMatch = await bcrypt.compare(req.body.password, user.password)
+      if (!passwordMatch) {
+        throw new Error
+      }
 
-      res.status(200)
-        .cookie('accessToken', newTokens.accessToken, cookieOptions)
-        .cookie('refreshToken', newTokens.refreshToken, cookieOptions)
-      if (!haveId) res.cookie('browserId', browserId, cookieOptions);
-      res.end();
+      const { accessToken, refreshToken } = await this.tokensService.attachTokens(user)
+
+      res
+        .cookie('accessToken', accessToken, cookieOptions)
+        .cookie('refreshToken', refreshToken, cookieOptions)
+        .sendStatus(200)
     } catch (e) {
-      res.status(400).json({ message: 'Bad input' });
+      res.status(400).json({ message: 'Email or password is not valid' })
     }
   }
 
   async logout(req, res) {
-    const a = await this.tokensService.findAll()
-    console.log(a)
     try {
-      const token = req.signedCookies.refreshToken;
-      const { browserId, haveId } = getBrowserId(req);
-
-      if (!haveId || !token) throw new Error;
-
-      await this.tokensService.delete({
-        browserId
-      })
-
-      res.status(200)
-        .clearCookie('accessToken')
-        .clearCookie('refreshToken')
-        .end();
-    } catch (e) {
-      res.status(401)
-        .clearCookie('accessToken')
-        .clearCookie('refreshToken')
-        .json({ message: 'Logout failed' });
+      await this.tokensService.deleteToken(req, res)
+    } finally {
+      res.sendStatus(200)
     }
   }
 
   async refreshTokens(req, res) {
-    const a = await this.tokensService.findAll()
-    console.log(a)
-    const token = req.signedCookies.refreshToken;
-    const { browserId, haveId } = getBrowserId(req);
     try {
-      if (!haveId || !token) throw new Error;
-      const decoded = await jwt.verify(token, 'process.env.JWT_REFRESH_SECRET');
-      const user = await this.usersService.findOne({ id: decoded.userId });
-      const { refreshTokenId } = await this.tokensService.findOne({
-        browserId
+      const token = req.signedCookies.refreshToken
+      const { userId, jti: refreshTokenId, exp: expiresAt } = await jwt.verify(token, JWT_REFRESH_SECRET)
+
+      const deleteResult = await this.tokensService.delete({ 
+        refreshTokenId,
+        expiresAt
       })
-      if (refreshTokenId !== decoded.jti) throw new Error;
+      const isDeleted = deleteResult.raw[1]
+      if (!isDeleted) {
+        throw new Error
+      }
 
-      const newTokens = createTokens(user.id, user.role);
+      const user = await this.usersService.findOne({ id: userId })
+      const { accessToken, refreshToken } = await this.tokensService.attachTokens(user, refreshTokenId)
 
-      await this.tokensService.delete({
-        browserId
-      })
-      await this.tokensService.create({
-        refreshTokenId: jwt.decode(newTokens.refreshToken).jti,
-        user,
-        browserId
-      } as Token)
-
-      res.status(200)
-        .cookie('accessToken', newTokens.accessToken, cookieOptions)
-        .cookie('refreshToken', newTokens.refreshToken, cookieOptions)
-        .end();
+      res
+        .cookie('accessToken', accessToken, cookieOptions)
+        .cookie('refreshToken', refreshToken, cookieOptions)
+        .sendStatus(200)
     } catch (e) {
-      res.status(401).json({ message: 'Please relogin' });
+      await this.tokensService.deleteToken(req, res)
+      res.status(401).json({ message: 'Please relogin' })
     }
   }
 }

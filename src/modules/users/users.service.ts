@@ -24,9 +24,8 @@ export class UsersService {
     return { items, totalCount }
   }
 
-  async findOne(where): Promise<User> {
-    const user = await this.userRepository.findOne({ where })
-    return user
+  findOne(where): Promise<User> {
+    return this.userRepository.findOne({ where })
   }
 
   create(user: User): Promise<User> {
@@ -39,5 +38,11 @@ export class UsersService {
 
   delete(id): Promise<DeleteResult> {
     return this.userRepository.delete(id)
+  }
+
+  async exists(options): Promise<boolean> {
+    return Boolean(
+      await this.userRepository.count(options)
+    )
   }
 }

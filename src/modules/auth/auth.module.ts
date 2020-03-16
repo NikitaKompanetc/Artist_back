@@ -1,18 +1,20 @@
-import { Module } from '@nestjs/common' 
+import { Module, MiddlewareConsumer } from '@nestjs/common' 
 import { TypeOrmModule } from '@nestjs/typeorm' 
 import { AuthService } from './auth.service'
 import { AuthController } from './auth.controller'
-import { UsersService } from '../users/users.service'
-import { TokensService } from '../users/tokens.service'
 import { UsersModule } from '../users/users.module'
+import { TokensModule } from '../tokens/tokens.module'
+import { UsersService } from '../users/users.service'
+import { TokensService } from '../tokens/tokens.service'
 
 @Module({
   imports: [
     TypeOrmModule.forFeature(),
-    UsersModule
+    UsersModule,
+    TokensModule
   ],
   exports: [TypeOrmModule],
-  providers: [AuthService, TokensService],
+  providers: [AuthService, UsersService, TokensService],
   controllers: [AuthController]
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToMany, OneToOne, ManyToMany, JoinTable } from 'typeorm' 
-import { Token } from './token.entity'
+import { Token } from '../tokens/token.entity'
 
 @Entity()
 export class User {

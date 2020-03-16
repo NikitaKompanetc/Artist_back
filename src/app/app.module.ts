@@ -14,6 +14,7 @@ import { StylesModule } from 'src/modules/styles/styles.module'
 import { FormatsModule } from 'src/modules/formats/formats.module' 
 import { UsersModule } from 'src/modules/users/users.module'
 import { AuthModule } from 'src/modules/auth/auth.module'
+import { TokensModule } from 'src/modules/tokens/tokens.module'
 
 const modules = [
   TypeOrmModule,
@@ -30,7 +31,8 @@ const modules = [
   GenresModule,
   FormatsModule,
   UsersModule,
-  AuthModule
+  AuthModule,
+  TokensModule
 ]
 
 @Module({
