@@ -1,4 +1,4 @@
-import { LabelsModule } from 'src/modules/labels/labels.module';
+import { LabelsModule } from 'src/modules/labels/labels.module'
 
 import { Module } from '@nestjs/common' 
 import { TypeOrmModule } from '@nestjs/typeorm' 
@@ -10,7 +10,7 @@ import { EventsModule } from '../events/events.module'
 import { EventsService } from '../events/events.service'
 import { VenuesModule } from '../venues/venues.module'
 import { VenuesService } from '../venues/venues.service'
-import { LabelsService } from '../labels/labels.service';
+import { LabelsService } from '../labels/labels.service'
 
 @Module({
   imports: [
